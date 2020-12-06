@@ -5,6 +5,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>2020-11-otus-spring-shtanko</artifactId>
+
     <properties>
     </properties>
 
@@ -12,7 +14,7 @@
     </dependencies>
 
     <modules>
-      <module>homework-1</module>
-      <module>homework-2</module>
+        <module>homework-1</module>
+        <module>homework-2</module>
     </modules>
 </project>

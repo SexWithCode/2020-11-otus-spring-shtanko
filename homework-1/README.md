@@ -1,6 +1,9 @@
 # 2020-11-otus-spring-shtanko
-Max Shtanko: Otus Spring framework courses code.
+Student name: Max Shtanko
 
-Homework(s) list:
-src/main/java/org/shtanko/quiz - spring xml-based annotation quiz;
- 
+Course name: Spring framework development
+
+Task description:
+1. В ресурсах хранятся вопросы и различные ответы к ним в виде CSV файла (5 вопросов).
+2. Вопросы могут быть с выбором из нескольких вариантов или со свободным ответом - на Ваше желание и усмотрение.
+3. Приложение должна просто вывести вопросы теста из .csv файла с возможными вариантами ответа.
