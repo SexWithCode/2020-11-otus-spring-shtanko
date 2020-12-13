@@ -4,23 +4,26 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.shtanko.quiz.domain.Question;
+import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
+import static java.util.Objects.isNull;
+
+@Component
 public class CsvParser {
 
-    public List<Question> parse(String source) {
+    public List<Question> parse(String source) throws IOException{
 
         List<Question> questionsList = new ArrayList<>();
 
-        try {
+            InputStream inputStream = this.getClass().getResourceAsStream(source);
+
+            if (isNull(inputStream)) {
+                throw new IllegalArgumentException("Resource not found: " + source);
+            }
+
             Reader reader = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream(source)));
             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
             List<CSVRecord> csvRecords = csvParser.getRecords();
@@ -39,9 +42,6 @@ public class CsvParser {
 
                 questionsList.add(question);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         return questionsList;
     }

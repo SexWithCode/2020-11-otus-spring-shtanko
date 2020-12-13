@@ -1,31 +1,17 @@
 package org.shtanko.quiz;
 
-import org.shtanko.quiz.domain.Question;
-import org.shtanko.quiz.service.QuizServiceCsv;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.shtanko.quiz.scenario.Scenario;
+import org.shtanko.quiz.scenario.SimpleScenario;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
-import java.util.List;
-import java.util.Scanner;
-
+@ComponentScan(basePackages="org.shtanko")
 public class Main {
 
-    public static void main(String[] args){
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/spring-context.xml");
-        QuizServiceCsv quizServiceCsv = context.getBean(QuizServiceCsv.class);
+    public static void main(String[] args) throws Exception {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
 
-        final Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Please enter your name: ");
-        scanner.nextLine();
-
-        System.out.print("Please enter your surname: ");
-        scanner.nextLine();
-
-        final List<Question> questions = quizServiceCsv.getAllQuestions();
-
-        for (Question question : questions) {
-            System.out.printf("Question is: %s %n", question.getQuestionMessage());
-            System.out.printf("Answers are: %s %n", question.getAnswers().keySet().toString());
-        }
+        Scenario scenario = context.getBean(SimpleScenario.class);
+        scenario.execute();
     }
 }

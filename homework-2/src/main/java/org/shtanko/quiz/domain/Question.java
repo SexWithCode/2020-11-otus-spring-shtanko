@@ -29,4 +29,8 @@ public class Question {
     public void setAnswers(Map<String, String> answers) {
         this.answers = answers;
     }
+
+    public boolean isValidAnswer (String answer) {
+        return Boolean.parseBoolean(this.answers.get(answer));
+    }
 }

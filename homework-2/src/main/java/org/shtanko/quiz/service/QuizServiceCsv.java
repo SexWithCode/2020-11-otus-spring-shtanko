@@ -1,30 +1,21 @@
 package org.shtanko.quiz.service;
 
 import org.shtanko.quiz.dao.QuizDao;
-import org.shtanko.quiz.dao.QuizDaoCsv;
 import org.shtanko.quiz.domain.Question;
-import org.shtanko.quiz.util.CsvParser;
+import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
+@Service
 public class QuizServiceCsv implements QuizService {
-    private final QuizDao quizDaoCsv;
-    private final CsvParser csvParser;
+    private final QuizDao quizDao;
 
-    public QuizServiceCsv(QuizDaoCsv quizDaoCsv, CsvParser csvParser) {
-        this.quizDaoCsv = quizDaoCsv;
-        this.csvParser = csvParser;
+    public QuizServiceCsv(QuizDao quizDao) {
+        this.quizDao = quizDao;
     }
 
-    public QuizDao getQuizDaoCsv() {
-        return quizDaoCsv;
-    }
-
-    public CsvParser getCsvParser() {
-        return csvParser;
-    }
-
-    public List<Question> getAllQuestions() {
-        return this.csvParser.parse(this.quizDaoCsv.getSource());
+    public List<Question> getAllQuestions() throws IOException {
+        return this.quizDao.getAllQuestions();
     }
 }
