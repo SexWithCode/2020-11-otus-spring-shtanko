@@ -15,5 +15,4 @@ public class QuizApplication {
 		Scenario scenario = context.getBean(SimpleScenario.class);
 		scenario.execute();
 	}
-
 }
