@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:library
+    initialization-mode: always
+    username: admin
+    password:
+    schema: schema.sql
+    data: data.sql
+
+  h2:
+    console:
+      path: /h2-console
+      settings:
+        web-allow-others: true
