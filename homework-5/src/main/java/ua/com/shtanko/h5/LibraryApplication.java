@@ -3,7 +3,6 @@ package ua.com.shtanko.h5;
 import org.h2.tools.Console;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 
 import java.sql.SQLException;
 
@@ -14,7 +13,7 @@ public class LibraryApplication {
 		//	Start H2 console
 		Console.main(args);
 
-		ApplicationContext applicationContext = SpringApplication.run(LibraryApplication.class);
+		SpringApplication.run(LibraryApplication.class, args);
 	}
 
 }
