@@ -1,8 +1,9 @@
 package ua.com.shtanko.h3.scenario;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import ua.com.shtanko.h3.config.QuizProperties;
 import ua.com.shtanko.h3.domain.Question;
 import ua.com.shtanko.h3.service.IOService;
 import ua.com.shtanko.h3.service.QuizService;
@@ -12,18 +13,19 @@ import java.util.List;
 import java.util.Locale;
 
 @Component
-public class SimpleScenario implements Scenario {
+@PropertySource("classpath:application.properties")
+public class SimpleScenario implements Scenario{
     private final QuizService quizService;
     private final Integer passScore;
     private final MessageSource messageSource;
     private final IOService ioService;
 
     public SimpleScenario(QuizService quizService,
-                          QuizProperties quizProperties,
+                          @Value("${pass.score}") Integer passScore,
                           MessageSource messageSource,
-                          IOService ioService) {
+                          IOService ioService){
         this.quizService = quizService;
-        this.passScore = quizProperties.getHit();
+        this.passScore = passScore;
         this.messageSource = messageSource;
         this.ioService = ioService;
     }
