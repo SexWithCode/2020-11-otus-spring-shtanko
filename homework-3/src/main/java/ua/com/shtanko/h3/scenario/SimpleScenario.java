@@ -1,9 +1,8 @@
 package ua.com.shtanko.h3.scenario;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import ua.com.shtanko.h3.config.QuizProperties;
 import ua.com.shtanko.h3.domain.Question;
 import ua.com.shtanko.h3.service.IOService;
 import ua.com.shtanko.h3.service.QuizService;
@@ -13,19 +12,18 @@ import java.util.List;
 import java.util.Locale;
 
 @Component
-@PropertySource("classpath:application.properties")
 public class SimpleScenario implements Scenario{
     private final QuizService quizService;
-    private final Integer passScore;
+    private final QuizProperties quizProperties;
     private final MessageSource messageSource;
     private final IOService ioService;
 
     public SimpleScenario(QuizService quizService,
-                          @Value("${pass.score}") Integer passScore,
+                          QuizProperties quizProperties,
                           MessageSource messageSource,
                           IOService ioService){
         this.quizService = quizService;
-        this.passScore = passScore;
+        this.quizProperties = quizProperties;
         this.messageSource = messageSource;
         this.ioService = ioService;
     }
@@ -34,8 +32,8 @@ public class SimpleScenario implements Scenario{
     public void execute() throws IOException {
         int score = 0;
 
-        //  Get current user's locale
-        Locale locale = Locale.getDefault();
+        //  Set quiz's locale from configuration file
+        Locale locale = new Locale(quizProperties.getLocaleLanguage(), quizProperties.getLocaleCountry());
 
         //  Ask user to introduce himself/herself
         ioService.displayMessage(messageSource.getMessage("name.request", null, locale));
@@ -64,10 +62,10 @@ public class SimpleScenario implements Scenario{
 
         //  Show user's and passing scores
         ioService.displayMessage(messageSource.getMessage("your.score.message", new String[]{String.valueOf(score)}, locale));
-        ioService.displayMessage(messageSource.getMessage("passing.score.message", new String[]{passScore.toString()}, locale));
+        ioService.displayMessage(messageSource.getMessage("passing.score.message", new String[]{quizProperties.getHit().toString()}, locale));
 
         //  Make decision on passing the test
-        if (score >= passScore) {
+        if (score >= quizProperties.getHit()) {
             ioService.displayMessage(messageSource.getMessage("positive.decision.message", null, locale));
         } else {
             ioService.displayMessage(messageSource.getMessage("negative.decision.message", null, locale));
