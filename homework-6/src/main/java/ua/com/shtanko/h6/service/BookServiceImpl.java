@@ -1,6 +1,8 @@
 package ua.com.shtanko.h6.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.stereotype.Service;
 import ua.com.shtanko.h6.domain.Author;
 import ua.com.shtanko.h6.domain.Book;
@@ -46,6 +48,7 @@ public class BookServiceImpl implements BookService{
 
     @Override
     @Transactional
+    @Fetch(FetchMode.SUBSELECT)
     public List<BookDto> getAllBooks() {
         return buildBookDtoList(bookRepository.findAll());
     }
