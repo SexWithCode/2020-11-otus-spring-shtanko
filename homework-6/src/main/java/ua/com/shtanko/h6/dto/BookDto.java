@@ -25,7 +25,7 @@ public class BookDto {
 
     @Override
     public String toString() {
-        return  "bookId=" + bookId +
+        return  "id =" + bookId +
                 ", name='" + name + '\'' +
                 ", author='" + author + '\'' +
                 ", genre='" + genre + '\'' ;

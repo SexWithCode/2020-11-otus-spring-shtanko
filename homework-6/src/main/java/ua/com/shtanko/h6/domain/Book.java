@@ -1,51 +1,33 @@
 package ua.com.shtanko.h6.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "books")
 public class Book {
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name", nullable = false)
     private String name;
-    private long authorId;
-    private long genreId;
 
-    public Book() {
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Author author;
 
-    public Book(long id, String name, long authorId, long genreId) {
-        this.id = id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Genre genre;
+
+    public Book(String name, Author author, Genre genre){
         this.name = name;
-        this.authorId = authorId;
-        this.genreId = genreId;
+        this.author = author;
+        this.genre = genre;
     }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public long getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(long authorId) {
-        this.authorId = authorId;
-    }
-
-    public long getGenreId() {
-        return genreId;
-    }
-
-    public void setGenreId(long genreId) {
-        this.genreId = genreId;
-    }
-
 }

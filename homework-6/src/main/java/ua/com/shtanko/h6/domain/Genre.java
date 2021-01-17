@@ -1,30 +1,29 @@
 package ua.com.shtanko.h6.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "genres")
 public class Genre {
-    private long id;
-    private String genre;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public Genre() {
-    }
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    public Genre(long id, String genre) {
-        this.id = id;
-        this.genre = genre;
-    }
+    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Book> books;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public Genre(String name) {
+        this.name = name;
     }
 }

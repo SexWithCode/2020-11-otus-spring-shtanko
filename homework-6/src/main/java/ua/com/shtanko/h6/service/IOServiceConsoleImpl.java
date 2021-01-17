@@ -31,5 +31,4 @@ public class IOServiceConsoleImpl implements IOService {
     public long readLongValue () {
         return Long.parseLong(readMessage());
     }
-
 }

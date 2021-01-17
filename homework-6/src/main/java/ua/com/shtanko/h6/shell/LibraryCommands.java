@@ -1,19 +1,33 @@
 package ua.com.shtanko.h6.shell;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
+import ua.com.shtanko.h6.domain.Author;
+import ua.com.shtanko.h6.domain.Book;
+import ua.com.shtanko.h6.domain.Genre;
 import ua.com.shtanko.h6.dto.BookDto;
+import ua.com.shtanko.h6.repository.AuthorRepository;
+import ua.com.shtanko.h6.repository.GenreRepository;
 import ua.com.shtanko.h6.service.BookService;
 import ua.com.shtanko.h6.service.IOService;
 
 @ShellComponent
+@RequiredArgsConstructor
 public class LibraryCommands {
     private final IOService ioService;
     private final BookService bookService;
 
-    public LibraryCommands(IOService ioService, BookService bookService) {
-        this.ioService = ioService;
-        this.bookService = bookService;
+    private final AuthorRepository authorRepository;
+    private final GenreRepository genreRepository;
+
+    @ShellMethod(value = "init", key = {"in", "init"})
+    private void init() {
+        Author author = authorRepository.save(new Author("Tolkien"));
+        Genre genre = genreRepository.save(new Genre ("Fantasy"));
+        Book book = new Book("The lord of the ring", author, genre);
+
+        bookService.saveBook(book);
     }
 
     @ShellMethod(value = "Save book", key = {"sb", "save-book"})
