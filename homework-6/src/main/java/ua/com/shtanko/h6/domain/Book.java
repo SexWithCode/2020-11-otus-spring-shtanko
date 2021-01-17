@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -25,9 +26,12 @@ public class Book {
     @ManyToOne(fetch = FetchType.LAZY)
     private Genre genre;
 
+    @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Comment> comments;
+
     public Book(String name, Author author, Genre genre){
         this.name = name;
         this.author = author;
         this.genre = genre;
-    }
+}
 }
