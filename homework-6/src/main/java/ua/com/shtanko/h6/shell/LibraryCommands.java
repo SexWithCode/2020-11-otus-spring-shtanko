@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import ua.com.shtanko.h6.dto.BookDto;
-import ua.com.shtanko.h6.repository.AuthorRepository;
-import ua.com.shtanko.h6.repository.GenreRepository;
 import ua.com.shtanko.h6.service.BookService;
 import ua.com.shtanko.h6.service.IOService;
 
@@ -14,9 +12,6 @@ import ua.com.shtanko.h6.service.IOService;
 public class LibraryCommands {
     private final IOService ioService;
     private final BookService bookService;
-
-    private final AuthorRepository authorRepository;
-    private final GenreRepository genreRepository;
 
     @ShellMethod(value = "Save book", key = {"sb", "save-book"})
     public void saveBook() {
@@ -34,7 +29,7 @@ public class LibraryCommands {
         try {
             bookService.saveBook(bookDto);
         } catch (Exception e) {
-            ioService.displayMessage("Can't save the book: " + e.getMessage());
+            ioService.displayMessage("[ERROR] Can't save the book: " + e.getMessage());
         }
     }
 
@@ -56,7 +51,7 @@ public class LibraryCommands {
         if (bookDto != null) {
             ioService.displayMessage(bookDto.toString());
         } else {
-            ioService.displayMessage(String.format("Can't find book : the book with id %d wasn't found!", id));
+            ioService.displayMessage(String.format("[ERROR] Can't find book : the book with id %d wasn't found!", id));
         }
     }
 
@@ -90,7 +85,7 @@ public class LibraryCommands {
         if (bookDto != null) {
             bookService.deleteBook(id);
         } else {
-            ioService.displayMessage(String.format("Can't find book : the book with id %d wasn't found!", id));
+            ioService.displayMessage(String.format("[ERROR] Can't find book: the book with id %d wasn't found!", id));
         }
     }
 

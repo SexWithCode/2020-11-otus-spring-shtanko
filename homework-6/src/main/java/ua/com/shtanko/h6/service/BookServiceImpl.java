@@ -8,9 +8,9 @@ import ua.com.shtanko.h6.domain.Author;
 import ua.com.shtanko.h6.domain.Book;
 import ua.com.shtanko.h6.domain.Genre;
 import ua.com.shtanko.h6.dto.BookDto;
-import ua.com.shtanko.h6.repository.AuthorRepository;
-import ua.com.shtanko.h6.repository.BookRepository;
-import ua.com.shtanko.h6.repository.GenreRepository;
+import ua.com.shtanko.h6.repository.AuthorRepositorySpringData;
+import ua.com.shtanko.h6.repository.BookRepositoryJpaImpl;
+import ua.com.shtanko.h6.repository.GenreRepositorySpringData;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -21,71 +21,73 @@ import static java.util.Objects.isNull;
 @RequiredArgsConstructor
 @Service
 public class BookServiceImpl implements BookService{
-    private final BookRepository bookRepository;
-    private final AuthorRepository authorRepository;
-    private final GenreRepository genreRepository;
+//    private final BookRepositorySpringData bookRepositorySpringData;
+    private final BookRepositoryJpaImpl bookRepository;
+
+    private final AuthorRepositorySpringData authorRepositorySpringData;
+    private final GenreRepositorySpringData genreRepositorySpringData;
 
     @Override
     public void saveBook(Book book) {
-        bookRepository.save(book);
+        bookRepository.saveBook(book);
     }
 
     @Override
     public void saveBook(BookDto bookDto) {
-        Author author = authorRepository.findByName(bookDto.getAuthor())
-                .orElseThrow(() -> new IllegalArgumentException("Unknown author."));
+        Author author = authorRepositorySpringData.findByName(bookDto.getAuthorName())
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown author."));
 
-        Genre genre = genreRepository.findByName(bookDto.getGenre())
-                .orElseThrow(() -> new IllegalArgumentException("Unknown genre."));
+        Genre genre = genreRepositorySpringData.findByName(bookDto.getGenreName())
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown genre."));
 
         Book book = new Book();
-        book.setName(bookDto.getName());
+        book.setName(bookDto.getBookName());
         book.setAuthor(author);
         book.setGenre(genre);
 
-        bookRepository.save(book);
+        bookRepository.saveBook(book);
     }
 
     @Override
     @Transactional
     @Fetch(FetchMode.SUBSELECT)
     public List<BookDto> getAllBooks() {
-        return buildBookDtoList(bookRepository.findAll());
+        return buildBookDtoList(bookRepository.findAllBooks());
     }
 
     @Override
     @Transactional
     public BookDto getBookById(Long id) {
-        Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Book with id " + id + "not found."));
+        Book book = bookRepository.findBookById(id)
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Book with id " + id + " wasn't found."));
 
         return buildBookDto(book);
     }
 
     @Override
     public void updateBook(BookDto bookDto) {
-        Book book = bookRepository.findById(bookDto.getBookId())
-                .orElseThrow(() -> new IllegalArgumentException("Book with id " + bookDto.getBookId() + "not found."));
+        Book book = bookRepository.findBookById(bookDto.getBookId())
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Book with id " + bookDto.getBookId() + " not found."));
 
-        Author author = authorRepository.findByName(bookDto.getAuthor())
-                .orElseThrow(() -> new IllegalArgumentException("Unknown author."));
+        Author author = authorRepositorySpringData.findByName(bookDto.getAuthorName())
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown author."));
 
-        Genre genre = genreRepository.findByName(bookDto.getGenre())
-                .orElseThrow(() -> new IllegalArgumentException("Unknown genre."));
+        Genre genre = genreRepositorySpringData.findByName(bookDto.getGenreName())
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown genre."));
 
-        book.setName(bookDto.getName());
+        book.setName(bookDto.getBookName());
         book.setAuthor(author);
         book.setGenre(genre);
 
-        bookRepository.save(book);
-
+        bookRepository.updateBookById(bookDto.getBookId(), book);
     }
 
     @Override
     public void deleteBook(Long id) {
-        bookRepository.deleteById(id);
+        bookRepository.deleteBookById(id);
     }
 
+    //  Method(s) to build DTO objects:
     private BookDto buildBookDto(Book book) {
         if (isNull(book)) {
             return null;

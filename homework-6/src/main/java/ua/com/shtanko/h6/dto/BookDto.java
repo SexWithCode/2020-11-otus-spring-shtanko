@@ -5,22 +5,22 @@ import lombok.Getter;
 @Getter
 public class BookDto {
     private final Long bookId;
-    private final String name;
-    private final String author;
-    private final String genre;
+    private final String bookName;
+    private final String authorName;
+    private final String genreName;
 
-    public BookDto(Long bookId, String name, String author, String genre) {
+    public BookDto(Long bookId, String bookName, String authorName, String genreName) {
         this.bookId = bookId;
-        this.name = name;
-        this.author = author;
-        this.genre = genre;
+        this.bookName = bookName;
+        this.authorName = authorName;
+        this.genreName = genreName;
     }
 
-    public BookDto(String name, String author, String genre) {
+    public BookDto(String bookName, String authorName, String genreName) {
         this.bookId = null;
-        this.name = name;
-        this.author = author;
-        this.genre = genre;
+        this.bookName = bookName;
+        this.authorName = authorName;
+        this.genreName = genreName;
     }
 
     @Override
@@ -30,13 +30,13 @@ public class BookDto {
             .append(bookId)
             .append(", ")
             .append("name : ")
-            .append(name)
+            .append(bookName)
             .append(", ")
             .append("author: ")
-            .append(author)
+            .append(authorName)
             .append(", ")
             .append("genre: ")
-            .append(genre)
+            .append(genreName)
             .toString();
     }
 }
