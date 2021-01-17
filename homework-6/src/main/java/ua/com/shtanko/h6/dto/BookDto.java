@@ -25,9 +25,18 @@ public class BookDto {
 
     @Override
     public String toString() {
-        return  "id =" + bookId +
-                ", name='" + name + '\'' +
-                ", author='" + author + '\'' +
-                ", genre='" + genre + '\'' ;
+        return new StringBuilder()
+            .append("id: ")
+            .append(bookId)
+            .append(", ")
+            .append("name : ")
+            .append(name)
+            .append(", ")
+            .append("author: ")
+            .append(author)
+            .append(", ")
+            .append("genre: ")
+            .append(genre)
+            .toString();
     }
 }
