@@ -5,6 +5,6 @@ import ua.com.shtanko.h6.domain.Author;
 import java.util.Optional;
 
 public interface AuthorRepository {
-    Optional<Author> getAuthorById(long id);
-    Optional<Author> getAuthorByName (String name);
+    Author saveAuthor(Author author);
+    Optional<Author> findAuthorByName(String name);
 }

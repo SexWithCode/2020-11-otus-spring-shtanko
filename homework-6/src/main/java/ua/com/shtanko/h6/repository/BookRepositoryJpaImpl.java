@@ -7,12 +7,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Transactional
 public class BookRepositoryJpaImpl implements BookRepository{
     @PersistenceContext
     private EntityManager entityManager;
@@ -36,7 +34,7 @@ public class BookRepositoryJpaImpl implements BookRepository{
         return query.getResultList();
     }
 
-    //  We don't use this method - left here for reference.
+    //  We don't use this method - left here for further reference.
     @Override
     public List<Book> findBooksByName(String name) {
         TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book b WHERE b.name = :name", Book.class);

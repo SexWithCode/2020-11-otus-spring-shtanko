@@ -8,9 +8,9 @@ import ua.com.shtanko.h6.domain.Author;
 import ua.com.shtanko.h6.domain.Book;
 import ua.com.shtanko.h6.domain.Genre;
 import ua.com.shtanko.h6.dto.BookDto;
-import ua.com.shtanko.h6.repository.AuthorRepositorySpringData;
+import ua.com.shtanko.h6.repository.AuthorRepositoryJpaImpl;
 import ua.com.shtanko.h6.repository.BookRepositoryJpaImpl;
-import ua.com.shtanko.h6.repository.GenreRepositorySpringData;
+import ua.com.shtanko.h6.repository.GenreRepositoryJpaImpl;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -21,23 +21,23 @@ import static java.util.Objects.isNull;
 @RequiredArgsConstructor
 @Service
 public class BookServiceImpl implements BookService{
-//    private final BookRepositorySpringData bookRepositorySpringData;
-    private final BookRepositoryJpaImpl bookRepository;
-
-    private final AuthorRepositorySpringData authorRepositorySpringData;
-    private final GenreRepositorySpringData genreRepositorySpringData;
+    private final BookRepositoryJpaImpl bookRepositoryJpa;
+    private final AuthorRepositoryJpaImpl authorRepositoryJpa;
+    private final GenreRepositoryJpaImpl genreRepositoryJpa;
 
     @Override
+    @Transactional
     public void saveBook(Book book) {
-        bookRepository.saveBook(book);
+        bookRepositoryJpa.saveBook(book);
     }
 
     @Override
+    @Transactional
     public void saveBook(BookDto bookDto) {
-        Author author = authorRepositorySpringData.findByName(bookDto.getAuthorName())
+        Author author = authorRepositoryJpa.findAuthorByName(bookDto.getAuthorName())
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown author."));
 
-        Genre genre = genreRepositorySpringData.findByName(bookDto.getGenreName())
+        Genre genre = genreRepositoryJpa.findGenreByName(bookDto.getGenreName())
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown genre."));
 
         Book book = new Book();
@@ -45,46 +45,48 @@ public class BookServiceImpl implements BookService{
         book.setAuthor(author);
         book.setGenre(genre);
 
-        bookRepository.saveBook(book);
+        bookRepositoryJpa.saveBook(book);
     }
 
     @Override
     @Transactional
     @Fetch(FetchMode.SUBSELECT)
     public List<BookDto> getAllBooks() {
-        return buildBookDtoList(bookRepository.findAllBooks());
+        return buildBookDtoList(bookRepositoryJpa.findAllBooks());
     }
 
     @Override
     @Transactional
     public BookDto getBookById(Long id) {
-        Book book = bookRepository.findBookById(id)
+        Book book = bookRepositoryJpa.findBookById(id)
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] Book with id " + id + " wasn't found."));
 
         return buildBookDto(book);
     }
 
     @Override
+    @Transactional
     public void updateBook(BookDto bookDto) {
-        Book book = bookRepository.findBookById(bookDto.getBookId())
+        Book book = bookRepositoryJpa.findBookById(bookDto.getBookId())
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] Book with id " + bookDto.getBookId() + " not found."));
 
-        Author author = authorRepositorySpringData.findByName(bookDto.getAuthorName())
+        Author author = authorRepositoryJpa.findAuthorByName(bookDto.getAuthorName())
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown author."));
 
-        Genre genre = genreRepositorySpringData.findByName(bookDto.getGenreName())
+        Genre genre = genreRepositoryJpa.findGenreByName(bookDto.getGenreName())
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown genre."));
 
         book.setName(bookDto.getBookName());
         book.setAuthor(author);
         book.setGenre(genre);
 
-        bookRepository.updateBookById(bookDto.getBookId(), book);
+        bookRepositoryJpa.updateBookById(bookDto.getBookId(), book);
     }
 
     @Override
+    @Transactional
     public void deleteBook(Long id) {
-        bookRepository.deleteBookById(id);
+        bookRepositoryJpa.deleteBookById(id);
     }
 
     //  Method(s) to build DTO objects:
