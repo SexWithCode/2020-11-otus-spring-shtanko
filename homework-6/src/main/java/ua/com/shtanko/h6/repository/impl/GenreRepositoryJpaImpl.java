@@ -1,7 +1,8 @@
-package ua.com.shtanko.h6.repository;
+package ua.com.shtanko.h6.repository.impl;
 
 import org.springframework.stereotype.Repository;
 import ua.com.shtanko.h6.domain.Genre;
+import ua.com.shtanko.h6.repository.GenreRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,7 +10,7 @@ import javax.persistence.TypedQuery;
 import java.util.Optional;
 
 @Repository
-public class GenreRepositoryJpaImpl implements GenreRepository{
+public class GenreRepositoryJpaImpl implements GenreRepository {
     @PersistenceContext
     private EntityManager entityManager;
 

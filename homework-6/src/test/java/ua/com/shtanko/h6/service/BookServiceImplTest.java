@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import ua.com.shtanko.h6.service.impl.BookServiceImpl;
 
 @DisplayName("Book Service ")
 @JdbcTest

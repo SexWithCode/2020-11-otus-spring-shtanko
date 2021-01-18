@@ -8,8 +8,10 @@ import java.util.Optional;
 public interface BookRepository {
     Book saveBook(Book book);
     List<Book> findAllBooks();
-    List<Book> findBooksByName(String name);
     Optional<Book> findBookById(Long id);
     void updateBookById(Long id, Book book);
     void deleteBookById(Long id);
+
+    //  We don't use this method - left here for further reference.
+    List<Book> findBooksByName(String name);
 }

@@ -6,10 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CommentRepository {
-    Comment saveComment(Comment comment);
-    List<Comment> findAllComments();
-    List<Comment> findCommentsByText(String text);
+    void saveComment(Comment comment);
     Optional<Comment> findCommentById(Long id);
-    void updateCommentById(Long id, Comment comment);
+    List<Comment> findCommentsByBookId (Long id);
+    Comment updateComment(Comment comment);
     void deleteCommentById(Long id);
 }

@@ -1,7 +1,8 @@
-package ua.com.shtanko.h6.repository;
+package ua.com.shtanko.h6.repository.impl;
 
 import org.springframework.stereotype.Repository;
 import ua.com.shtanko.h6.domain.Book;
+import ua.com.shtanko.h6.repository.BookRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class BookRepositoryJpaImpl implements BookRepository{
+public class BookRepositoryJpaImpl implements BookRepository {
     @PersistenceContext
     private EntityManager entityManager;
 

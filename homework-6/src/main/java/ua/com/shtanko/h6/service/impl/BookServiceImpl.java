@@ -1,4 +1,4 @@
-package ua.com.shtanko.h6.service;
+package ua.com.shtanko.h6.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Fetch;
@@ -8,9 +8,10 @@ import ua.com.shtanko.h6.domain.Author;
 import ua.com.shtanko.h6.domain.Book;
 import ua.com.shtanko.h6.domain.Genre;
 import ua.com.shtanko.h6.dto.BookDto;
-import ua.com.shtanko.h6.repository.AuthorRepositoryJpaImpl;
-import ua.com.shtanko.h6.repository.BookRepositoryJpaImpl;
-import ua.com.shtanko.h6.repository.GenreRepositoryJpaImpl;
+import ua.com.shtanko.h6.repository.impl.AuthorRepositoryJpaImpl;
+import ua.com.shtanko.h6.repository.impl.BookRepositoryJpaImpl;
+import ua.com.shtanko.h6.repository.impl.GenreRepositoryJpaImpl;
+import ua.com.shtanko.h6.service.BookService;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import static java.util.Objects.isNull;
 
 @RequiredArgsConstructor
 @Service
-public class BookServiceImpl implements BookService{
+public class BookServiceImpl implements BookService {
     private final BookRepositoryJpaImpl bookRepositoryJpa;
     private final AuthorRepositoryJpaImpl authorRepositoryJpa;
     private final GenreRepositoryJpaImpl genreRepositoryJpa;

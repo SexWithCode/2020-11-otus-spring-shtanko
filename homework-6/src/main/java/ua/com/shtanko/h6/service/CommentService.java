@@ -1,12 +1,13 @@
 package ua.com.shtanko.h6.service;
 
-import ua.com.shtanko.h6.domain.Comment;
+import ua.com.shtanko.h6.dto.CommentDto;
+
+import java.util.List;
 
 public interface CommentService {
-    // TODO: Rewrite Comment to CommentDTO
-
-    Comment saveComment(Comment comment);
-
-    void updateComment (Comment comment);
-    void deleteComment (Long commentId);
+    void saveComment(CommentDto commentDto);
+    List<CommentDto> getAllCommentsByBookId(Long id);
+    CommentDto getCommentById (Long id);
+    void updateComment (CommentDto commentDto);
+    void deleteComment (Long id);
 }

@@ -3,6 +3,8 @@ package ua.com.shtanko.h6.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -26,12 +28,13 @@ public class Book {
     @ManyToOne(fetch = FetchType.LAZY)
     private Genre genre;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Comment> comments;
 
-    public Book(String name, Author author, Genre genre){
+    public Book(String name, Author author, Genre genre) {
         this.name = name;
         this.author = author;
         this.genre = genre;
-}
+    }
 }

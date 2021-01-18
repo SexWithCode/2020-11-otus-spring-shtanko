@@ -1,7 +1,8 @@
-package ua.com.shtanko.h6.service;
+package ua.com.shtanko.h6.service.impl;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ua.com.shtanko.h6.service.IOService;
 
 import java.io.InputStream;
 import java.io.PrintStream;
