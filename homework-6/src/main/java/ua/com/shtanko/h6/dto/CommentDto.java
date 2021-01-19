@@ -3,7 +3,6 @@ package ua.com.shtanko.h6.dto;
 import lombok.Builder;
 import lombok.Getter;
 
-//@Data
 @Getter
 @Builder
 public class CommentDto {

@@ -46,10 +46,11 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public CommentDto getCommentById(Long id) {
         Comment comment = commentRepositoryJpa.findCommentById(id)
-                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Book with id " + id + " wasn't found."));
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Comment with id " + id + " wasn't found."));
 
         return CommentDto
                 .builder()
+                .commentId(comment.getId())
                 .commentText(comment.getText())
                 .bookId(comment.getBook().getId())
                 .build();
@@ -63,6 +64,7 @@ public class CommentServiceImpl implements CommentService {
 
         Comment comment = Comment
                 .builder()
+                .id(commentDto.getCommentId())
                 .text(commentDto.getCommentText())
                 .book(book)
                 .build();
@@ -77,7 +79,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     //  Method(s) to build DTO objects:
-    CommentDto buildCommentDto (Comment comment) {
+    CommentDto buildCommentDto(Comment comment) {
         if (isNull(comment)) {
             return null;
         } else {
