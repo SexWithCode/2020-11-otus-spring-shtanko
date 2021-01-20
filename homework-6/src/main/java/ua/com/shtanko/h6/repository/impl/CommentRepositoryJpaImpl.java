@@ -18,7 +18,7 @@ public class CommentRepositoryJpaImpl implements CommentRepository {
 
     @Override
     public void saveComment(Comment comment) {
-            entityManager.persist(comment);
+        entityManager.persist(comment);
     }
 
     @Override

@@ -50,12 +50,12 @@ public class BookRepositoryJpaImpl implements BookRepository {
     }
 
     @Override
-    public void updateBookById(Long id, Book book) {
+    public void updateBookById(Book book) {
         Query query = entityManager.createQuery("UPDATE Book b SET b.name = :name, b.author = :author, b.genre = :genre WHERE b.id = :id");
         query.setParameter("name", book.getName());
         query.setParameter("author", book.getAuthor());
         query.setParameter("genre", book.getGenre());
-        query.setParameter("id", id);
+        query.setParameter("id", book.getId());
         query.executeUpdate();
     }
 

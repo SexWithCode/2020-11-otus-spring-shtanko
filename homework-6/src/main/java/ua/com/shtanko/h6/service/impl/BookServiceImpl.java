@@ -81,7 +81,7 @@ public class BookServiceImpl implements BookService {
         book.setAuthor(author);
         book.setGenre(genre);
 
-        bookRepositoryJpa.updateBookById(bookDto.getBookId(), book);
+        bookRepositoryJpa.updateBookById(book);
     }
 
     @Override
