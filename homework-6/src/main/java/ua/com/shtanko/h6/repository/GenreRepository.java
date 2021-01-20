@@ -6,5 +6,6 @@ import java.util.Optional;
 
 public interface GenreRepository {
     Genre saveGenre(Genre genre);
+
     Optional<Genre> findGenreByName(String name);
 }

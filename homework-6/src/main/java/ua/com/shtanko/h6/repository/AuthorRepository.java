@@ -6,5 +6,6 @@ import java.util.Optional;
 
 public interface AuthorRepository {
     Author saveAuthor(Author author);
+
     Optional<Author> findAuthorByName(String name);
 }

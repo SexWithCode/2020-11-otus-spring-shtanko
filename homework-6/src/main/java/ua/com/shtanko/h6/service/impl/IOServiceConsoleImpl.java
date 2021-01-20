@@ -13,8 +13,8 @@ public class IOServiceConsoleImpl implements IOService {
     private final PrintStream out;
     private final Scanner scanner;
 
-    public IOServiceConsoleImpl (@Value("#{ T(java.lang.System).in}") InputStream in,
-                                 @Value("#{ T(java.lang.System).out}") PrintStream out) {
+    public IOServiceConsoleImpl(@Value("#{ T(java.lang.System).in}") InputStream in,
+                                @Value("#{ T(java.lang.System).out}") PrintStream out) {
         this.out = out;
         this.scanner = new Scanner(in);
     }
@@ -29,7 +29,7 @@ public class IOServiceConsoleImpl implements IOService {
         return scanner.nextLine();
     }
 
-    public long readLongValue () {
+    public long readLongValue() {
         return Long.parseLong(readMessage());
     }
 }

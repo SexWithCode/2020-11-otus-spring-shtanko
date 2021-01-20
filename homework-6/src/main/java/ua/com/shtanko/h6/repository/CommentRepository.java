@@ -7,8 +7,12 @@ import java.util.Optional;
 
 public interface CommentRepository {
     void saveComment(Comment comment);
+
     Optional<Comment> findCommentById(Long id);
-    List<Comment> findCommentsByBookId (Long id);
+
+    List<Comment> findCommentsByBookId(Long id);
+
     Comment updateComment(Comment comment);
+
     void deleteCommentById(Long id);
 }

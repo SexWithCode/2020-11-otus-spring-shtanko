@@ -26,17 +26,17 @@ public class BookDto {
     @Override
     public String toString() {
         return new StringBuilder()
-            .append("id: ")
-            .append(bookId)
-            .append(", ")
-            .append("name : ")
-            .append(bookName)
-            .append(", ")
-            .append("author: ")
-            .append(authorName)
-            .append(", ")
-            .append("genre: ")
-            .append(genreName)
-            .toString();
+                .append("id: ")
+                .append(bookId)
+                .append(", ")
+                .append("name : ")
+                .append(bookName)
+                .append(", ")
+                .append("author: ")
+                .append(authorName)
+                .append(", ")
+                .append("genre: ")
+                .append(genreName)
+                .toString();
     }
 }
