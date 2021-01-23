@@ -2,7 +2,7 @@ package ua.com.shtanko.h3.domain;
 
 import java.util.Map;
 
-public class Question {
+public final class Question {
     private String questionMessage;
     private Map<String, String> answers;
 
@@ -30,7 +30,7 @@ public class Question {
         this.answers = answers;
     }
 
-    public boolean isValidAnswer (String answer) {
+    public boolean isValidAnswer(String answer) {
         return Boolean.parseBoolean(this.answers.get(answer));
     }
 }

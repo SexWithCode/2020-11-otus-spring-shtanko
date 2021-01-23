@@ -12,7 +12,7 @@ import ua.com.shtanko.h3.scenario.SimpleScenario;
 @EnableConfigurationProperties(QuizProperties.class)
 public class QuizApplication {
 
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws Exception {
 		ApplicationContext context = SpringApplication.run(QuizApplication.class, args);
 
 		Scenario scenario = context.getBean(SimpleScenario.class);

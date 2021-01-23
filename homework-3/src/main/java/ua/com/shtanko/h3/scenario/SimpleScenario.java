@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Component
-public class SimpleScenario implements Scenario{
+public class SimpleScenario implements Scenario {
     private final QuizService quizService;
     private final QuizProperties quizProperties;
     private final MessageSource messageSource;
@@ -21,7 +21,7 @@ public class SimpleScenario implements Scenario{
     public SimpleScenario(QuizService quizService,
                           QuizProperties quizProperties,
                           MessageSource messageSource,
-                          IOService ioService){
+                          IOService ioService) {
         this.quizService = quizService;
         this.quizProperties = quizProperties;
         this.messageSource = messageSource;

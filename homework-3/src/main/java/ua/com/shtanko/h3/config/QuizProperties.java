@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "quiz")
-public class QuizProperties  {
+public class QuizProperties {
     private String source;
     private String localeLanguage;
     private String localeCountry;
