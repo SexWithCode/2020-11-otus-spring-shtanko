@@ -61,8 +61,6 @@ public class BookRepositoryJpaImpl implements BookRepository {
 
     @Override
     public void deleteBookById(Long id) {
-        Query query = entityManager.createQuery("DELETE FROM Book b WHERE b.id = :id");
-        query.setParameter("id", id);
-        query.executeUpdate();
+        entityManager.remove(entityManager.find(Book.class, id));
     }
 }

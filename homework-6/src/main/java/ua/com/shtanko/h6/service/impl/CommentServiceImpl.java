@@ -18,6 +18,8 @@ import static java.util.Objects.isNull;
 @RequiredArgsConstructor
 @Service
 public class CommentServiceImpl implements CommentService {
+    private static final String BOOK_NOT_FOUND_ERROR_MESSAGE = "[ERROR] Book with id %d wasn't found.";
+
     private final CommentRepositoryJpaImpl commentRepositoryJpa;
     private final BookRepositoryJpaImpl bookRepositoryJpa;
 
@@ -25,7 +27,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public void saveComment(CommentDto commentDto) {
         Book book = bookRepositoryJpa.findBookById(commentDto.getBookId())
-                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Book with id " + commentDto.getBookId() + " wasn't found."));
+                .orElseThrow(() -> new IllegalArgumentException(String.format(BOOK_NOT_FOUND_ERROR_MESSAGE, commentDto.getBookId())));
 
         Comment comment = Comment
                 .builder()
@@ -39,14 +41,16 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public List<CommentDto> getAllCommentsByBookId(Long id) {
-        return buildCommentDtoList(commentRepositoryJpa.findCommentsByBookId(id));
+        var book = bookRepositoryJpa.findBookById(id)
+                .orElseThrow(() -> new IllegalArgumentException(String.format(BOOK_NOT_FOUND_ERROR_MESSAGE, id)));
+        return buildCommentDtoList(book.getComments());
     }
 
     @Override
     @Transactional
     public CommentDto getCommentById(Long id) {
         Comment comment = commentRepositoryJpa.findCommentById(id)
-                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Comment with id " + id + " wasn't found."));
+                .orElseThrow(() -> new IllegalArgumentException(String.format("[ERROR] Comment with id %d wasn't found.", id)));
 
         return CommentDto
                 .builder()
@@ -60,7 +64,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public void updateComment(CommentDto commentDto) {
         Book book = bookRepositoryJpa.findBookById(commentDto.getBookId())
-                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Book with id " + commentDto.getBookId() + " wasn't found."));
+                .orElseThrow(() -> new IllegalArgumentException(String.format(BOOK_NOT_FOUND_ERROR_MESSAGE, commentDto.getBookId())));
 
         Comment comment = Comment
                 .builder()

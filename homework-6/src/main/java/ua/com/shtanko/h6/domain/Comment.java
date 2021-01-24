@@ -21,6 +21,6 @@ public class Comment {
     @Column(name = "text", nullable = false)
     private String text;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Book book;
 }

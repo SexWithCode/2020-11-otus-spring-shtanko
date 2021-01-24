@@ -7,8 +7,6 @@ import ua.com.shtanko.h6.repository.CommentRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -24,14 +22,6 @@ public class CommentRepositoryJpaImpl implements CommentRepository {
     @Override
     public Optional<Comment> findCommentById(Long id) {
         return Optional.ofNullable(entityManager.find(Comment.class, id));
-    }
-
-    @Override
-    public List<Comment> findCommentsByBookId(Long id) {
-        TypedQuery<Comment> query = entityManager.createQuery("SELECT c FROM Comment c WHERE c.book.id = :id", Comment.class);
-        query.setParameter("id", id);
-
-        return query.getResultList();
     }
 
     @Override

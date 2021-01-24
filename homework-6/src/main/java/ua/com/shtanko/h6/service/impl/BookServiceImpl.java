@@ -50,7 +50,6 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    @Transactional
     @Fetch(FetchMode.SUBSELECT)
     public List<BookDto> getAllBooks() {
         return buildBookDtoList(bookRepositoryJpa.findAllBooks());
@@ -69,7 +68,7 @@ public class BookServiceImpl implements BookService {
     @Transactional
     public void updateBook(BookDto bookDto) {
         Book book = bookRepositoryJpa.findBookById(bookDto.getBookId())
-                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Book with id " + bookDto.getBookId() + " not found."));
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Book with id " + bookDto.getBookId() + " wasn't found."));
 
         Author author = authorRepositoryJpa.findAuthorByName(bookDto.getAuthorName())
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown author."));

@@ -20,8 +20,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("Comment repository Jpa implementation should :")
 class CommentRepositoryJpaImplTest {
     public static final String EXPECTED_COMMENT_TEXT = "Test comment.";
-    public static final Integer EXPECTED_NUMBER_OF_COMMENTS = 3;
-    public static final Long BOOK_ID = 100L;
     public static final String BOOK_NAME = "Brotherhood of the ring";
     public static final Long AUTHOR_ID = 100L;
     public static final String AUTHOR_NAME = "John R. R. Tolkien";
@@ -71,17 +69,6 @@ class CommentRepositoryJpaImplTest {
         var comment = commentRepositoryJpa.findCommentById(NOT_EXISTING_COMMENT_ID);
 
         assertThat(comment).isNotPresent();
-    }
-
-    @DisplayName("return all comments finding by book id")
-    @Test
-    void shouldGetAllCommentsByBookId() {
-        var comments = commentRepositoryJpa.findCommentsByBookId(BOOK_ID);
-
-        assertThat(comments)
-                .isNotNull()
-                .hasSize(EXPECTED_NUMBER_OF_COMMENTS)
-                .allMatch(s -> s.getText() != null && s.getBook().getName() != null);
     }
 
     @DisplayName("update comment by comment id")
