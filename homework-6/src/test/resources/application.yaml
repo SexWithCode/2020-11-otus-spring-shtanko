@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:library
+    initialization-mode: always
+    username: admin
+    password:
+    schema: schema.sql
+    data: data.sql
+
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+
+    properties:
+      hibernate:
+        format_sql: true
+
+    show-sql: false
+
+  h2:
+    console:
+      path: /h2-console
+      settings:
+        web-allow-others: true
