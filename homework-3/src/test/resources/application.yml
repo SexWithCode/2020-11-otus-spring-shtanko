@@ -1,0 +1,5 @@
+quiz:
+  source: /quiz.csv
+  hit: 1
+  localeLanguage: ru
+  localeCountry: RU
