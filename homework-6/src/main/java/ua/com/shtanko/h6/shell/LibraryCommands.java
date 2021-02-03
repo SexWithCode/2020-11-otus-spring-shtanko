@@ -162,7 +162,7 @@ public class LibraryCommands {
         CommentDto commentDto = commentService.getCommentById(commentId);
 
         if (commentDto != null) {
-            bookService.deleteBook(commentId);
+            commentService.deleteComment(commentId);
         } else {
             ioService.displayMessage(String.format("[ERROR] Can't find comment: the comment with id %d wasn't found!", commentId));
         }
