@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>ua.com.shtanko.h7</groupId>
-	<artifactId>library-orm-based</artifactId>
+	<artifactId>library-spring-data-jpa</artifactId>
 	<version>0.0.0.1</version>
 	<name>library-spring-data-jpa</name>
 	<description>Library application Spring Data JPA</description>
@@ -65,7 +65,7 @@
 		<dependency>
 			<groupId>org.jetbrains</groupId>
 			<artifactId>annotations</artifactId>
-			<version>RELEASE</version>
+			<version>20.1.0</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
