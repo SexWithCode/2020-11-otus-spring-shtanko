@@ -15,48 +15,60 @@ import java.util.List;
 
 import static java.util.Objects.isNull;
 
-@RequiredArgsConstructor @Service public class CommentServiceImpl implements CommentService {
+@RequiredArgsConstructor
+@Service
+public class CommentServiceImpl implements CommentService {
     private static final String BOOK_NOT_FOUND_ERROR_MESSAGE = "[ERROR] Book with id %d wasn't found.";
 
     private final CommentRepository commentRepository;
     private final BookRepository bookRepository;
 
-    @Override @Transactional public void saveComment(CommentDto commentDto) {
+    @Override
+    @Transactional
+    public void saveComment(CommentDto commentDto) {
         Book book = bookRepository.findById(commentDto.getBookId())
-            .orElseThrow(() -> new IllegalArgumentException(String.format(BOOK_NOT_FOUND_ERROR_MESSAGE, commentDto.getBookId())));
+                .orElseThrow(() -> new IllegalArgumentException(String.format(BOOK_NOT_FOUND_ERROR_MESSAGE, commentDto.getBookId())));
 
         Comment comment = Comment.builder().text(commentDto.getCommentText()).book(book).build();
 
         commentRepository.save(comment);
     }
 
-    @Override @Transactional public List<CommentDto> getAllCommentsByBookId(Long id) {
+    @Override
+    @Transactional
+    public List<CommentDto> getAllCommentsByBookId(Long id) {
         var book = bookRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException(String.format(BOOK_NOT_FOUND_ERROR_MESSAGE, id)));
+                .orElseThrow(() -> new IllegalArgumentException(String.format(BOOK_NOT_FOUND_ERROR_MESSAGE, id)));
         return buildCommentDtoList(book.getComments());
     }
 
-    @Override @Transactional public CommentDto getCommentById(Long id) {
+    @Override
+    @Transactional
+    public CommentDto getCommentById(Long id) {
         Comment comment = commentRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException(String.format("[ERROR] Comment with id %d wasn't found.", id)));
+                .orElseThrow(() -> new IllegalArgumentException(String.format("[ERROR] Comment with id %d wasn't found.", id)));
 
         return CommentDto.builder()
-            .commentId(comment.getId())
-            .commentText(comment.getText())
-            .bookId(comment.getBook().getId())
-            .build();
+                .commentId(comment.getId())
+                .commentText(comment.getText())
+                .bookId(comment.getBook().getId())
+                .build();
     }
 
-    @Override @Transactional public void updateComment(CommentDto commentDto) {
+    @Override
+    @Transactional
+    public void updateComment(CommentDto commentDto) {
         Book book = bookRepository.findById(commentDto.getBookId())
-            .orElseThrow(() -> new IllegalArgumentException(String.format(BOOK_NOT_FOUND_ERROR_MESSAGE, commentDto.getBookId())));
+                .orElseThrow(() -> new IllegalArgumentException(String.format(BOOK_NOT_FOUND_ERROR_MESSAGE, commentDto.getBookId())));
 
         Comment comment = Comment.builder().id(commentDto.getCommentId()).text(commentDto.getCommentText()).book(book).build();
 
         commentRepository.save(comment);
     }
 
-    @Override @Transactional public void deleteComment(Long id) {
+    @Override
+    @Transactional
+    public void deleteComment(Long id) {
         commentRepository.deleteById(id);
     }
 
@@ -66,10 +78,10 @@ import static java.util.Objects.isNull;
             return null;
         } else {
             return CommentDto.builder()
-                .commentId(comment.getId())
-                .commentText(comment.getText())
-                .bookId(comment.getBook().getId())
-                .build();
+                    .commentId(comment.getId())
+                    .commentText(comment.getText())
+                    .bookId(comment.getBook().getId())
+                    .build();
         }
     }
 

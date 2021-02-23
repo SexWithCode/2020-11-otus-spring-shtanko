@@ -9,7 +9,9 @@ import ua.com.shtanko.h7.service.BookService;
 import ua.com.shtanko.h7.service.CommentService;
 import ua.com.shtanko.h7.service.IOService;
 
-@ShellComponent @RequiredArgsConstructor public class LibraryCommands {
+@ShellComponent
+@RequiredArgsConstructor
+public class LibraryCommands {
     private final IOService ioService;
     private final BookService bookService;
     private final CommentService commentService;
@@ -18,7 +20,8 @@ import ua.com.shtanko.h7.service.IOService;
     private static final String ENTER_BOOK_ID_REQUEST = "Please enter book's id: ";
 
     //  Commands for Book entity:
-    @ShellMethod(value = "Save book", key = { "sb", "save-book" }) public void saveBook() {
+    @ShellMethod(value = "Save book", key = {"sb", "save-book"})
+    public void saveBook() {
         ioService.displayMessage("Please enter book's name: ");
         String name = ioService.readMessage();
 
@@ -37,14 +40,16 @@ import ua.com.shtanko.h7.service.IOService;
         }
     }
 
-    @ShellMethod(value = "Get all books", key = { "gab", "get-all-books" }) public void getAllBooks() {
+    @ShellMethod(value = "Get all books", key = {"gab", "get-all-books"})
+    public void getAllBooks() {
         ioService.displayMessage("Here is the list of books in the library: ");
         for (BookDto bookDto : bookService.getAllBooks()) {
             ioService.displayMessage(bookDto.toString());
         }
     }
 
-    @ShellMethod(value = "Get the book by id", key = { "gb", "get-book" }) public void getBook() {
+    @ShellMethod(value = "Get the book by id", key = {"gb", "get-book"})
+    public void getBook() {
         ioService.displayMessage(ENTER_BOOK_ID_REQUEST);
         long id = ioService.readLongValue();
 
@@ -57,7 +62,8 @@ import ua.com.shtanko.h7.service.IOService;
         }
     }
 
-    @ShellMethod(value = "Update book", key = { "ub", "update-book" }) public void updateBook() {
+    @ShellMethod(value = "Update book", key = {"ub", "update-book"})
+    public void updateBook() {
         ioService.displayMessage(ENTER_BOOK_ID_REQUEST);
         long id = ioService.readLongValue();
 
@@ -75,7 +81,8 @@ import ua.com.shtanko.h7.service.IOService;
         bookService.updateBook(bookDto);
     }
 
-    @ShellMethod(value = "Delete the book by id", key = { "db", "delete-book" }) public void deleteBook() {
+    @ShellMethod(value = "Delete the book by id", key = {"db", "delete-book"})
+    public void deleteBook() {
         ioService.displayMessage(ENTER_BOOK_ID_REQUEST);
         long id = ioService.readLongValue();
 
@@ -89,7 +96,8 @@ import ua.com.shtanko.h7.service.IOService;
     }
 
     //  Commands for Comment entity:
-    @ShellMethod(value = "Save comment", key = { "sc", "save-comment" }) public void saveComment() {
+    @ShellMethod(value = "Save comment", key = {"sc", "save-comment"})
+    public void saveComment() {
         ioService.displayMessage(ENTER_BOOK_ID_REQUEST);
         Long bookId = ioService.readLongValue();
 
@@ -105,7 +113,8 @@ import ua.com.shtanko.h7.service.IOService;
         }
     }
 
-    @ShellMethod(value = "Get comments by book's id", key = { "gcb", "get-comment-by-book-id" }) public void getCommentsByBookId() {
+    @ShellMethod(value = "Get comments by book's id", key = {"gcb", "get-comment-by-book-id"})
+    public void getCommentsByBookId() {
         ioService.displayMessage(ENTER_BOOK_ID_REQUEST);
         Long bookId = ioService.readLongValue();
 
@@ -115,8 +124,9 @@ import ua.com.shtanko.h7.service.IOService;
         }
     }
 
-    @ShellMethod(value = "Get comment by comment's id", key = { "gcc",
-        "get-comment-by-comment-id" }) public void getCommentByCommentId() {
+    @ShellMethod(value = "Get comment by comment's id", key = {"gcc",
+            "get-comment-by-comment-id"})
+    public void getCommentByCommentId() {
         ioService.displayMessage(ENTER_COMMENT_ID_REQUEST);
         Long commentId = ioService.readLongValue();
 
@@ -129,7 +139,8 @@ import ua.com.shtanko.h7.service.IOService;
         }
     }
 
-    @ShellMethod(value = "Update comment", key = { "uc", "update-comment" }) public void updateComment() {
+    @ShellMethod(value = "Update comment", key = {"uc", "update-comment"})
+    public void updateComment() {
         ioService.displayMessage(ENTER_COMMENT_ID_REQUEST);
         Long commentId = ioService.readLongValue();
 
@@ -144,7 +155,8 @@ import ua.com.shtanko.h7.service.IOService;
         commentService.updateComment(commentDto);
     }
 
-    @ShellMethod(value = "Delete the comment by id", key = { "dc", "delete-comment" }) public void deleteComment() {
+    @ShellMethod(value = "Delete the comment by id", key = {"dc", "delete-comment"})
+    public void deleteComment() {
         ioService.displayMessage(ENTER_COMMENT_ID_REQUEST);
         Long commentId = ioService.readLongValue();
 

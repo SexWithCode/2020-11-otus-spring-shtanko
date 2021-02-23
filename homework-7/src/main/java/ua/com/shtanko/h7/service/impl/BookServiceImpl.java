@@ -19,17 +19,21 @@ import java.util.List;
 
 import static java.util.Objects.isNull;
 
-@RequiredArgsConstructor @Service public class BookServiceImpl implements BookService {
+@RequiredArgsConstructor
+@Service
+public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final GenreRepository genreRepository;
 
-    @Override @Transactional public void saveBook(BookDto bookDto) {
+    @Override
+    @Transactional
+    public void saveBook(BookDto bookDto) {
         Author author = authorRepository.findByName(bookDto.getAuthorName())
-            .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown author."));
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown author."));
 
         Genre genre = genreRepository.findByName(bookDto.getGenreName())
-            .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown genre."));
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown genre."));
 
         Book book = new Book();
         book.setName(bookDto.getBookName());
@@ -39,26 +43,32 @@ import static java.util.Objects.isNull;
         bookRepository.save(book);
     }
 
-    @Override @Fetch(FetchMode.SUBSELECT) public List<BookDto> getAllBooks() {
+    @Override
+    @Fetch(FetchMode.SUBSELECT)
+    public List<BookDto> getAllBooks() {
         return buildBookDtoList(bookRepository.findAll());
     }
 
-    @Override @Transactional public BookDto getBookById(Long id) {
+    @Override
+    @Transactional
+    public BookDto getBookById(Long id) {
         Book book = bookRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("[ERROR] Book with id " + id + " wasn't found."));
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Book with id " + id + " wasn't found."));
 
         return buildBookDto(book);
     }
 
-    @Override @Transactional public void updateBook(BookDto bookDto) {
+    @Override
+    @Transactional
+    public void updateBook(BookDto bookDto) {
         Book book = bookRepository.findById(bookDto.getBookId())
-            .orElseThrow(() -> new IllegalArgumentException("[ERROR] Book with id " + bookDto.getBookId() + " wasn't found."));
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Book with id " + bookDto.getBookId() + " wasn't found."));
 
         Author author = authorRepository.findByName(bookDto.getAuthorName())
-            .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown author."));
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown author."));
 
         Genre genre = genreRepository.findByName(bookDto.getGenreName())
-            .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown genre."));
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] Unknown genre."));
 
         book.setName(bookDto.getBookName());
         book.setAuthor(author);
@@ -67,7 +77,9 @@ import static java.util.Objects.isNull;
         bookRepository.save(book);
     }
 
-    @Override @Transactional public void deleteBook(Long id) {
+    @Override
+    @Transactional
+    public void deleteBook(Long id) {
         bookRepository.deleteById(id);
     }
 

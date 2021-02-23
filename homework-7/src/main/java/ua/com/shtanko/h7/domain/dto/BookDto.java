@@ -2,7 +2,8 @@ package ua.com.shtanko.h7.domain.dto;
 
 import lombok.Getter;
 
-@Getter public class BookDto {
+@Getter
+public class BookDto {
     private final Long bookId;
     private final String bookName;
     private final String authorName;
@@ -22,18 +23,19 @@ import lombok.Getter;
         this.genreName = genreName;
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return new StringBuilder().append("id: ")
-            .append(bookId)
-            .append(", ")
-            .append("name : ")
-            .append(bookName)
-            .append(", ")
-            .append("author: ")
-            .append(authorName)
-            .append(", ")
-            .append("genre: ")
-            .append(genreName)
-            .toString();
+                .append(bookId)
+                .append(", ")
+                .append("name : ")
+                .append(bookName)
+                .append(", ")
+                .append("author: ")
+                .append(authorName)
+                .append(", ")
+                .append("genre: ")
+                .append(genreName)
+                .toString();
     }
 }
